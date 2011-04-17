@@ -1,0 +1,11 @@
+## YAML Template.
+parameters:
+  user.entity.class: Cds\UserBundle\Entity\User
+  user_manager.class: Cds\UserBundle\Entity\UserManager
+services:
+  user:
+    class: %user.entity.class%
+  user_manager:
+    class: %user_manager.class%
+    arguments: doctrine.orm.entity_manager
+    arguments: %user.entity.class%

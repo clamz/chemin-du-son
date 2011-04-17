@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.ini }
     - { resource: security.yml }
+    
 
 framework:
     charset:       UTF-8
@@ -50,7 +51,7 @@ doctrine:
         entity_managers:
             default:
                 mappings:
-                    AcmeDemoBundle: ~
+                    CdsUserBundle: { type: annotation, dir: Entity/ }
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -62,3 +63,13 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+parameters:
+  user.entity.class: Cds\UserBundle\Entity\User
+  user_manager.class: Cds\UserBundle\Entity\UserManager
+services:
+  user:
+    class: %user.entity.class%
+  user_manager:
+    class: %user_manager.class%
+    arguments: [ @doctrine.orm.entity_manager, %user.entity.class%]
+    
